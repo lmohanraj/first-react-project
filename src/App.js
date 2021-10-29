@@ -74,42 +74,42 @@ function Counter(){
   )
 }
 
-function Color(){
-  const [color, setColor] = useState();
- const [colors, setcolors] = useState([]);
-  const styles = {
-    backgroundColor: color,
-    fontSize : "1.5rem",
-    fontWeight : "bold",
-    margin : "10px"
-  };
-  return (
-    <div>
-       <input 
-          style={styles} 
-          placeholder="Enter a color"
-          value={color}
-          onChange = {(evt) => setColor(evt.target.value)}
-       />
+// function Color(){
+//   const [color, setColor] = useState();
+//  const [colors, setcolors] = useState([]);
+//   const styles = {
+//     backgroundColor: color,
+//     fontSize : "1.5rem",
+//     fontWeight : "bold",
+//     margin : "10px"
+//   };
+//   return (
+//     <div>
+//        <input 
+//           style={styles} 
+//           placeholder="Enter a color"
+//           value={color}
+//           onChange = {(evt) => setColor(evt.target.value)}
+//        />
 
-       <button onClick={() => {setcolors([...colors, color])}}>Add color</button> 
-       {
-         colors.map((clr) => (
-           <ColorBox color={clr} />
-         ))
-       }     
-    </div>
-  )
-}
+//        <button onClick={() => {setcolors([...colors, color])}}>Add color</button> 
+//        {
+//          colors.map((clr) => (
+//            <ColorBox color={clr} />
+//          ))
+//        }     
+//     </div>
+//   )
+// }
 
-function ColorBox({color}){
-  const styles = {
-    backgroundColor : color,
-    height : "100px",
-    width : "150px"
-  }
+// function ColorBox({color}){
+//   const styles = {
+//     backgroundColor : color,
+//     height : "100px",
+//     width : "150px"
+//   }
 
-  return(
-    <div style={styles}></div>
-  )
-}
+//   return(
+//     <div style={styles}></div>
+//   )
+// }
