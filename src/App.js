@@ -3,10 +3,8 @@ import { useState } from 'react';
 import Button from '@mui/material/Button'; 
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Badge from '@mui/material/Badge';
-import MailIcon from '@mui/icons-material/Mail';
 import './App.css';
 
 export default function App() {
