@@ -1,18 +1,26 @@
 .App {
   font-family: sans-serif;
   text-align: center;
-  /* display: grid;
-  grid-template-columns: repeat(3,1fr); */
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  justify-items: center;
+  /* display: flex;
+  flex-wrap: wrap; */
+  gap: 30px;
   place-content: center;
 }
-
+.movie-container{
+  display: grid;
+  gap: 0px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  padding-top: 20px;
+}
 .movie-section{
  margin : 0px;
  margin-bottom: 10px;
- border: 2px solid lightgrey;
+ /* border: 2px solid lightgrey; */
+ border: none;
  border-radius: 5px;
  padding-bottom: 20px;
  max-width: 300px;
@@ -31,6 +39,10 @@
   height: 350px;
   width: 250px;
   object-fit: cover;
+}
+
+.poster-container{
+position: relative;
 }
 
 h1{
@@ -53,6 +65,8 @@ h1{
   justify-content: center;
   margin-top: 10px;
   gap : 10px;
+  /* border: 2px solid lightgrey; */
+  /* border-radius: 5px; */
 }
 
 button{
@@ -67,11 +81,53 @@ button{
 }
 
 .buttons{
-  color: #004f74;
+  color: #169aaf;
   border: 2px solid white;
   padding: 5px;
 }
 .buttons:hover{
   border: 2px solid lightgrey ;
   border-radius: 15px;
+}
+
+.desc-and-delete{
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+.delete-button{
+  color: crimson;
+  opacity: 0.7;
+  border: none;
+  padding: 0px;
+  width: fit-content;
+  align-content: center;
+}
+
+.delete-button:hover{
+  border: 0px;
+  border-radius: 0px ;
+  opacity: 1;
+}
+.delete-button-container{
+  display: flex;
+  justify-content: center;
+}
+.Add-movie-form{
+  display: grid;
+  justify-content: center;
+  gap: 10px;
+  margin: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.Add-movie-button{
+  color: white;
+  background-color: #d13241;
+  border-radius: 5px;
+}
+
+input{
+  width:500px;
 }
