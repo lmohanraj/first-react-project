@@ -1,12 +1,19 @@
 
 import { useState } from 'react';
+import Button from '@mui/material/Button'; 
+import Fab from '@mui/material/Fab';
+import EditIcon from '@mui/icons-material/Edit';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
 import './App.css';
 
 export default function App() {
        
-  const [movieName,setMovieName] = useState("");
-  const [moviePoster,setMoviePoster] = useState("");
-  const [movieDescription,setMovieDescription] = useState("");
+  const [movieName,setMovieName] = useState("");  //useState for new movie name
+  const [moviePoster,setMoviePoster] = useState(""); //useState for new movie poster
+  const [movieDescription,setMovieDescription] = useState(""); //useState for new movie description
 
   const INITIAL_MOVIES = [
     {
@@ -41,53 +48,74 @@ export default function App() {
     }
   ];
   const [movies, setMovies] = useState(INITIAL_MOVIES);
-  const addMovie = () => {
+  const addMovie = () => {    // Function to add new movie 
   const newMovie = {
       name: movieName,
       pic: moviePoster,
       desc: movieDescription
     }
-    setMovies([...movies, newMovie]);
+    setMovies([...movies, newMovie]);    //useState for movies array
   }
-
+  const addbuttonStyles={
+     backgroundColor: "crimson" // Styling for ADD MOVIE button
+  }
+  const deletebuttonStyles={
+    backgroundColor: "white",   // Styling for Delete button
+    color:"crimson"
+ }
   return (
 
     <section>
-    <div className="Add-movie-form">
-      <input  
-          placeholder="Enter a movie name"
-          value={movieName}
-          onChange = {(evt) => setMovieName(evt.target.value)}
-      />  
 
-      <input  
-          placeholder="Enter the movie poster url"
-          value={moviePoster}
-          onChange = {(evt) => setMoviePoster(evt.target.value)}
+      {/* Input fields to add a new movie */}
+    <div className="Add-movie-form">
+
+      {/* Input field for adding new movie name */}
+       <TextField id="outlined-basic" label="Name" variant="outlined" 
+        placeholder="Enter a movie name"
+        value={movieName}
+        onChange = {(evt) => setMovieName(evt.target.value)}
+       />
+
+       {/* Input field for adding new movie poster */}
+      <TextField id="outlined-basic" label="Poster" variant="outlined"
+        placeholder="Enter the movie poster url"
+        value={moviePoster}
+        onChange = {(evt) => setMoviePoster(evt.target.value)}
       />
 
-      <input  
+      {/* Input field for adding new movie description */}
+      <TextField className="TextField" id="outlined-basic" label="Description" variant="outlined"  
           placeholder="Enter the movie description"
           value={movieDescription}
           onChange = {(evt) => setMovieDescription(evt.target.value)}
       />
 
-      <button className="Add-movie-button" onClick={addMovie}>Add movie</button>
+      {/* ADD MOVIE button */}
+      <Button variant="contained" style={addbuttonStyles} onClick={addMovie}>Add movie</Button>
 
     </div>
 
     <div className="App">
-    
-      {movies.map((movie, index) => {
+
+      {movies.map((movie, index) => {          // Fetching each movie in "movies" array
+
       return(
         <div className="movie-container">
+
            <div className="delete-button-container">
-              <button className="delete-button" onClick={() => {
+             {/* Delete button to delete movie */}
+           <Button variant="contained" style={deletebuttonStyles} onClick={() => {
                 const removeIdx = index;
-                setMovies(movies.filter((mv, idx) => idx !== removeIdx));
-              }}><i class="fas fa-trash"></i></button>
+                setMovies(movies.filter((mv, idx) => idx !== removeIdx)); //Filter fn. to remove movie to be deleted
+              }}>
+                <i class="fas fa-trash"></i>
+           </Button>
            </div>
+
+           {/* Calling the "Msg" component to display movie name, poster & desc */}
            <Msg key= {index} name={movie.name} pic={movie.pic} desc={movie.desc} />
+
         </div>
       );
       })}
@@ -101,48 +129,89 @@ export default function App() {
 
 function Msg({ name, pic, desc }) {
   
-  const [show, setShow] = useState(false);
-  const displayDesc = () => {
-    setShow(!show);
+  const [show, setShow] = useState(false);     //useState to change description show
+  const displayDesc = () => {                  //useState function to change the description show value
+    setShow(!show);                    
+  }
+
+  // Styling for edit icon
+  const editIconStyles = {
+    width:"35px",
+    height: "25px"
   }
 
   return (  
     <div className="movie-section">
       
+      {/* Movie poster */}
       <div className="poster-container">
-        <img className="poster" src={pic} alt="ProfilePicture" />
-        </div>
+        <img className="poster" src={pic} alt={name} />
+      </div>
 
       <div className="name-and-edit">
-        <div><h1 className="name">{name}</h1></div>
-        <div className="edit-symbol"><i class="fas fa-pen"></i></div>
+
+        {/* Display movie name */}
+        <div><h1 className="name">{name}</h1></div> 
+        {/* Display the edit icon */}
+        <div>
+          <Fab style={editIconStyles} color="grey" aria-label="edit">
+             <EditIcon /> 
+          </Fab>
         </div>
 
-        <div className="desc-and-delete">
+      </div>
 
-           <button onClick={displayDesc}>
+      <div className="desc-and-delete">
+      {/* Button to show & hide description */}
+      {/* Toggle the button up & down during display show & hide res. */}
+           <button onClick={displayDesc}> 
            { show? <i class="fas fa-angle-up"></i> :<i class="fas fa-angle-down"></i>}
            </button>
 
-        </div>
+      </div>
+      {/* Toggle logic to show & hide the description */}
+      {/* It is called conditional rendering */}
+      { show? <p className="description">{desc}</p> : ""}  
 
-      { show? <p className="description">{desc}</p> : ""}
-
+      {/* Count & display like and dislike icons */}
       <Counter />
     </div>
   );
 }
 
 function Counter(){
-  const [like, setLike] = useState(0);
-  const [dislike, setDislike] = useState(0);
-  const incrementLike = () => setLike(like+1);
-  const incrementDislike = () => setDislike(dislike+1)
+  const [like, setLike] = useState(0);   // UseState to change the likes value
+  const [dislike, setDislike] = useState(0); // UseState to change the dislikes value
+  const incrementLike = () => setLike(like+1);  // UseState function for like value
+  const incrementDislike = () => setDislike(dislike+1);  // UseState function for dislike value
+  const iconStyle = {
+    fontSize : "1.7rem",
+    color : "#0f0d2b"           // Styling like & dislike icons
+  }
+
   return(
     <div className="buttons-container">
-      <button className="buttons" onClick={incrementLike}><i class="fas fa-thumbs-up"></i> {like}</button>
-      <button className="buttons" onClick={incrementDislike}><i class="fas fa-thumbs-down"></i> {dislike}</button>
-    
+
+      {/* Display the like button */}
+      
+      <Badge onClick={incrementLike} badgeContent={like} color="primary" overlap="circular"
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}>
+      <i class="fas fa-thumbs-up" style={iconStyle}></i>
+      </Badge>
+      
+      {/* Display the dislike button */}
+
+      <Badge onClick={incrementDislike} badgeContent={dislike} color="primary" overlap="circular"
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}>
+      <i class="fas fa-thumbs-down" style={iconStyle}></i>
+      </Badge>
+
     </div>
   )
 }
