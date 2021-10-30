@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import Badge from '@mui/material/Badge';
 import InfoIcon from '@mui/icons-material/Info';
 import './App.css';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom' ;
+import {Switch, Route, Link} from 'react-router-dom' ;
 
 
 export default function App() {
