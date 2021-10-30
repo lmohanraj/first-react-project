@@ -5,7 +5,10 @@ import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
 import TextField from '@mui/material/TextField';
 import Badge from '@mui/material/Badge';
+import InfoIcon from '@mui/icons-material/Info';
 import './App.css';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom' ;
+
 
 export default function App() {
        
@@ -59,73 +62,88 @@ export default function App() {
   }
   const deletebuttonStyles={
     backgroundColor: "white",   // Styling for Delete button
-    color:"crimson"
+    color:"crimson",
+    height:"24px"
  }
   return (
 
     <section>
 
-      {/* Input fields to add a new movie */}
-    <div className="Add-movie-form">
+    <nav>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/movies">Movies</Link></li>
+        <li><Link to="/add-movies">Add Movies</Link></li>
+        <li><Link to="/color-game">Color Game</Link></li>
+      </ul>
+    </nav>
 
-      {/* Input field for adding new movie name */}
-       <TextField id="outlined-basic" label="Name" variant="outlined" 
-        placeholder="Enter a movie name"
-        value={movieName}
-        onChange = {(evt) => setMovieName(evt.target.value)}
-       />
-
-       {/* Input field for adding new movie poster */}
-      <TextField id="outlined-basic" label="Poster" variant="outlined"
-        placeholder="Enter the movie poster url"
-        value={moviePoster}
-        onChange = {(evt) => setMoviePoster(evt.target.value)}
-      />
-
-      {/* Input field for adding new movie description */}
-      <TextField className="TextField" id="outlined-basic" label="Description" variant="outlined"  
-          placeholder="Enter the movie description"
-          value={movieDescription}
-          onChange = {(evt) => setMovieDescription(evt.target.value)}
-      />
-
-      {/* ADD MOVIE button */}
-      <Button variant="contained" style={addbuttonStyles} onClick={addMovie}>Add movie</Button>
-
-    </div>
-
+    <Switch>
+    <Route exact path='/'>Home page</Route>
+    <Route exact path='/movies'>
     <div className="App">
 
-      {movies.map((movie, index) => {          // Fetching each movie in "movies" array
+{movies.map((movie, index) => {          // Fetching each movie in "movies" array
 
-      return(
-        <div className="movie-container">
+return(
+  <div className="movie-container">
 
-           <div className="delete-button-container">
-             {/* Delete button to delete movie */}
-           <Button variant="contained" style={deletebuttonStyles} onClick={() => {
-                const removeIdx = index;
-                setMovies(movies.filter((mv, idx) => idx !== removeIdx)); //Filter fn. to remove movie to be deleted
-              }}>
-                <i class="fas fa-trash"></i>
-           </Button>
-           </div>
+     {/* Calling the "Msg" component to display movie name, poster & desc */}
+     <Msg key= {index} name={movie.name} pic={movie.pic} desc={movie.desc} 
+     deleteMovieButton = {
+      <Button variant="contained" style={deletebuttonStyles} onClick={() => {
+        const removeIdx = index;
+        setMovies(movies.filter((mv, idx) => idx !== removeIdx)); //Filter fn. to remove movie to be deleted
+      }}>
+        <i class="fas fa-trash"></i>
+   </Button>   // Delete button to delete movie; passed as props 
+     }/>
 
-           {/* Calling the "Msg" component to display movie name, poster & desc */}
-           <Msg key= {index} name={movie.name} pic={movie.pic} desc={movie.desc} />
+  </div>
+);
+})}
 
-        </div>
-      );
-      })}
+</div>
 
-      {/* <Color /> */}
-    </div>
+    </Route>
+    <Route exact path='/add-movies'>
+       <div className="Add-movie-form">
+
+{/* Input field for adding new movie name */}
+ <TextField id="outlined-basic" label="Name" variant="outlined" 
+  placeholder="Enter a movie name"
+  value={movieName}
+  onChange = {(evt) => setMovieName(evt.target.value)}
+ />
+
+ {/* Input field for adding new movie poster */}
+<TextField id="outlined-basic" label="Poster" variant="outlined"
+  placeholder="Enter the movie poster url"
+  value={moviePoster}
+  onChange = {(evt) => setMoviePoster(evt.target.value)}
+/>
+
+{/* Input field for adding new movie description */}
+<TextField className="TextField" id="outlined-basic" label="Description" variant="outlined"  
+    placeholder="Enter the movie description"
+    value={movieDescription}
+    onChange = {(evt) => setMovieDescription(evt.target.value)}
+/>
+
+{/* ADD MOVIE button */}
+<Button variant="contained" style={addbuttonStyles} onClick={addMovie}>Add movie</Button>
+
+</div>
+    </Route>
+    <Route exact path='/color-game'><Color /></Route>
+    </Switch>
+      {/* Input fields to add a new movie */}
 
    </section>
   );
 }
 
-function Msg({ name, pic, desc }) {
+function Msg({ name, pic, desc, deleteMovieButton }) {
   
   const [show, setShow] = useState(false);     //useState to change description show
   const displayDesc = () => {                  //useState function to change the description show value
@@ -135,7 +153,8 @@ function Msg({ name, pic, desc }) {
   // Styling for edit icon
   const editIconStyles = {
     width:"35px",
-    height: "25px"
+    height: "10px",
+    backgroundColor:"white"
   }
 
   return (  
@@ -151,11 +170,13 @@ function Msg({ name, pic, desc }) {
         {/* Display movie name */}
         <div><h1 className="name">{name}</h1></div> 
         {/* Display the edit icon */}
-        <div>
+        {/* <div>
           <Fab style={editIconStyles} color="grey" aria-label="edit">
              <EditIcon /> 
           </Fab>
-        </div>
+        </div> */}
+
+        <InfoIcon className="Info-icon"/>
 
       </div>
 
@@ -165,7 +186,12 @@ function Msg({ name, pic, desc }) {
            <button onClick={displayDesc}> 
            { show? <i class="fas fa-angle-up"></i> :<i class="fas fa-angle-down"></i>}
            </button>
-
+           <div>
+               <Fab style={editIconStyles} color="grey" aria-label="edit">
+               <EditIcon /> 
+               </Fab>
+           </div>
+           {deleteMovieButton}
       </div>
       {/* Toggle logic to show & hide the description */}
       {/* It is called conditional rendering */}
@@ -214,42 +240,42 @@ function Counter(){
   )
 }
 
-// function Color(){
-//   const [color, setColor] = useState();
-//  const [colors, setcolors] = useState([]);
-//   const styles = {
-//     backgroundColor: color,
-//     fontSize : "1.5rem",
-//     fontWeight : "bold",
-//     margin : "10px"
-//   };
-//   return (
-//     <div>
-//        <input 
-//           style={styles} 
-//           placeholder="Enter a color"
-//           value={color}
-//           onChange = {(evt) => setColor(evt.target.value)}
-//        />
+function Color(){
+  const [color, setColor] = useState();
+ const [colors, setcolors] = useState([]);
+  const styles = {
+    backgroundColor: color,
+    fontSize : "1.5rem",
+    fontWeight : "bold",
+    margin : "10px"
+  };
+  return (
+    <div>
+       <input 
+          style={styles} 
+          placeholder="Enter a color"
+          value={color}
+          onChange = {(evt) => setColor(evt.target.value)}
+       />
 
-//        <button onClick={() => {setcolors([...colors, color])}}>Add color</button> 
-//        {
-//          colors.map((clr) => (
-//            <ColorBox color={clr} />
-//          ))
-//        }     
-//     </div>
-//   )
-// }
+       <button class="Add-color-button" onClick={() => {setcolors([...colors, color])}}>Add color</button> 
+       {
+         colors.map((clr) => (
+           <ColorBox color={clr} />
+         ))
+       }     
+    </div>
+  )
+}
 
-// function ColorBox({color}){
-//   const styles = {
-//     backgroundColor : color,
-//     height : "100px",
-//     width : "150px"
-//   }
+function ColorBox({color}){
+  const styles = {
+    backgroundColor : color,
+    height : "100px",
+    width : "150px"
+  }
 
-//   return(
-//     <div style={styles}></div>
-//   )
-// }
+  return(
+    <div style={styles}></div>
+  )
+}
