@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Button from "@mui/material/Button";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import { Color } from "./Color";
@@ -7,6 +6,7 @@ import { Msg } from "./Msg";
 import { MovieDetails } from "./MovieDetails";
 import { AddMovieForm } from "./AddMovieForm";
 import { NavBar } from "./NavBar";
+import { DeleteMovieButton } from "./DeleteMovieButton";
 
 const INITIAL_MOVIES = [
   {
@@ -43,7 +43,7 @@ const INITIAL_MOVIES = [
 
 export const getFromStorage = (key) =>
   JSON.parse(localStorage.getItem("movies"));
-const updateStoredMovies = (updateMovies) =>
+export const updateStoredMovies = (updateMovies) =>
   localStorage.setItem("movies", JSON.stringify(updateMovies));
 updateStoredMovies(INITIAL_MOVIES);
 
@@ -66,14 +66,6 @@ export default function App() {
     updateStoredMovies([...movies, newMovie]); //useState for movies array
   };
 
-  const addbuttonStyles = {
-    backgroundColor: "crimson", // Styling for ADD MOVIE button
-  };
-  const deletebuttonStyles = {
-    backgroundColor: "white", // Styling for Delete button
-    color: "crimson",
-    height: "24px",
-  };
   return (
     <section>
       <NavBar></NavBar>
@@ -97,21 +89,11 @@ export default function App() {
                     desc={movie.desc}
                     id={index}
                     deleteMovieButton={
-                      <Button
-                        variant="contained"
-                        style={deletebuttonStyles}
-                        onClick={() => {
-                          const removeIdx = index;
-                          setMovies(
-                            movies.filter((mv, idx) => idx !== removeIdx)
-                          ); //Filter fn. to remove movie to be deleted
-                          updateStoredMovies(
-                            movies.filter((mv, idx) => idx !== removeIdx)
-                          );
-                        }}
-                      >
-                        <i class="fas fa-trash"></i>
-                      </Button> // Delete button to delete movie; passed as props
+                      <DeleteMovieButton
+                        movies={movies}
+                        setMovies={setMovies}
+                        index={index}
+                      ></DeleteMovieButton> // Delete button to delete movie; passed as props
                     }
                   />
                 </div>
@@ -133,7 +115,6 @@ export default function App() {
             movieTrailer={movieTrailer}
             setMovieTrailer={setMovieTrailer}
             addMovie={addMovie}
-            addbuttonStyles={addbuttonStyles}
           ></AddMovieForm>
         </Route>
         <Route exact path="/color-game">

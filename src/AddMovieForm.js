@@ -2,6 +2,11 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 export function AddMovieForm(props) {
+
+    const addbuttonStyles = {
+        backgroundColor: "crimson", // Styling for ADD MOVIE button
+      };
+
   return (
     <div className="Add-movie-form">
       {/* Input field for adding new movie name */}
@@ -44,7 +49,7 @@ export function AddMovieForm(props) {
       {/* ADD MOVIE button */}
       <Button
         variant="contained"
-        style={props.addbuttonStyles}
+        style={addbuttonStyles}
         onClick={props.addMovie}
       >
         Add movie
