@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import Fab from '@mui/material/Fab';
-import EditIcon from '@mui/icons-material/Edit';
-import InfoIcon from '@mui/icons-material/Info';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useHistory } from 'react-router-dom';
 import { Counter } from './Counter';
+// import Button from "@mui/material/Button";
 
 export function Msg({ name, pic, desc, deleteMovieButton, id }) {
 
@@ -11,13 +10,6 @@ export function Msg({ name, pic, desc, deleteMovieButton, id }) {
   const history = useHistory();
   const displayDesc = () => {
     setShow(!show);
-  };
-
-  // Styling for edit icon
-  const editIconStyles = {
-    width: "35px",
-    height: "10px",
-    backgroundColor: "white"
   };
 
   return (
@@ -32,14 +24,8 @@ export function Msg({ name, pic, desc, deleteMovieButton, id }) {
 
         {/* Display movie name */}
         <div><h1 className="name">{name}</h1></div>
-        {/* Display the edit icon */}
-        {/* <div>
-              <Fab style={editIconStyles} color="grey" aria-label="edit">
-                 <EditIcon />
-              </Fab>
-            </div> */}
 
-        <InfoIcon className="Info-icon" onClick={() => history.push("/movies/" + id)} />
+        <InfoOutlinedIcon className="Info-icon" onClick={() => history.push("/movies/" + id)} />
 
       </div>
 
@@ -47,14 +33,9 @@ export function Msg({ name, pic, desc, deleteMovieButton, id }) {
       <div className="desc-and-delete">
         {/* Button to show & hide description */}
         {/* Toggle the button up & down during display show & hide res. */}
-        <button onClick={displayDesc}>
+        <button className="show-button" onClick={displayDesc}>
           {show ? <i class="fas fa-angle-up"></i> : <i class="fas fa-angle-down"></i>}
         </button>
-        <div>
-          <Fab style={editIconStyles} color="grey" aria-label="edit">
-            <EditIcon />
-          </Fab>
-        </div>
         {deleteMovieButton}
       </div>
       {/* Toggle logic to show & hide the description */}

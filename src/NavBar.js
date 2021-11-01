@@ -11,7 +11,7 @@ export function NavBar() {
           <Link to="/movies">Movies</Link>
         </li>
         <li>
-          <Link to="/add-movies">Add Movies</Link>
+          <Link to="/add-movie">Add Movies</Link>
         </li>
         <li>
           <Link to="/color-game">Color Game</Link>

@@ -44,24 +44,6 @@
   object-fit: cover;
 }
 
-/* .poster-container{
-position: relative;
-} */
-
-/* h1{
-  padding-bottom: 2px;
-  margin-bottom: 0px;
-} */
-
-/* .edit-symbol{
-  font-size: 1rem;
-  align-self: center;
-} */
-
-/* .edit-symbol:hover{
-  color: #004f74;
-} */
-
 .name-and-edit{
   display: flex;
   flex-direction: row;
@@ -138,6 +120,16 @@ button{
  color: skyblue;
 }
 
+.Info-icon:hover{
+  color: greenyellow;
+ }
+
+ .show-button:hover{
+  color : white ;
+  border-radius: 50%;
+  background-color: #143132;
+ }
+
 input{
   height: 35px;
 }
@@ -172,4 +164,9 @@ a{
   margin: 30px;
   width: 700px;
   padding-bottom: 30px;
+}
+
+.edit-delete{
+  display: flex;
+  justify-content: space-evenly;
 }

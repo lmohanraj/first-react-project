@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import { useHistory } from "react-router";
 import { updateStoredMovies } from "./App";
 
 export function DeleteMovieButton(props) {
@@ -8,8 +9,24 @@ export function DeleteMovieButton(props) {
         color: "crimson",
         height: "24px",
       };
+      const editbuttonStyles = {
+        backgroundColor: "white", // Styling for Delete button
+        color: "grey",
+        height: "24px",
+      };
+      const history = useHistory();
 
   return (
+      <div className="edit-delete">
+    <Button
+      variant="contained"
+      style={editbuttonStyles}
+      onClick={() => {
+        history.push('/edit-movie/'+props.index);
+      }}
+    >
+      <i class="fas fa-edit"></i>
+    </Button>  
     <Button
       variant="contained"
       style={deletebuttonStyles}
@@ -21,6 +38,7 @@ export function DeleteMovieButton(props) {
       }}
     >
       <i class="fas fa-trash"></i>
-    </Button> // Delete button to delete movie; passed as props
+    </Button>  
+    </div>
   );
 }

@@ -5,8 +5,10 @@ import { Color } from "./Color";
 import { Msg } from "./Msg";
 import { MovieDetails } from "./MovieDetails";
 import { AddMovieForm } from "./AddMovieForm";
+import { EditMovieForm } from "./EditMovieForm";
 import { NavBar } from "./NavBar";
 import { DeleteMovieButton } from "./DeleteMovieButton";
+// import Button from "@mui/material/Button";
 
 const INITIAL_MOVIES = [
   {
@@ -41,30 +43,15 @@ const INITIAL_MOVIES = [
   },
 ];
 
-export const getFromStorage = (key) =>
+export const getFromStorage = () =>
   JSON.parse(localStorage.getItem("movies"));
 export const updateStoredMovies = (updateMovies) =>
   localStorage.setItem("movies", JSON.stringify(updateMovies));
 updateStoredMovies(INITIAL_MOVIES);
 
 export default function App() {
-  const [movieName, setMovieName] = useState(""); //useState for new movie name
-  const [moviePoster, setMoviePoster] = useState(""); //useState for new movie poster
-  const [movieDescription, setMovieDescription] = useState(""); //useState for new movie description
-  const [movieTrailer, setMovieTrailer] = useState("");
-  const [movies, setMovies] = useState(getFromStorage("movies"));
 
-  const addMovie = () => {
-    // Function to add new movie
-    const newMovie = {
-      name: movieName,
-      pic: moviePoster,
-      desc: movieDescription,
-      trailer: movieTrailer,
-    };
-    setMovies([...movies, newMovie]);
-    updateStoredMovies([...movies, newMovie]); //useState for movies array
-  };
+  const [movies, setMovies] = useState(getFromStorage("movies"));
 
   return (
     <section>
@@ -101,21 +88,14 @@ export default function App() {
             })}
           </div>
         </Route>
+        <Route exact path="/edit-movie/:id">
+        <EditMovieForm movies={movies} setMovies={setMovies}/>
+          </Route>
         <Route exact path="/movies/:id">
           <MovieDetails />
         </Route>
-        <Route exact path="/add-movies">
-          <AddMovieForm
-            movieName={movieName}
-            setMovieName={setMovieName}
-            moviePoster={moviePoster}
-            setMoviePoster={setMoviePoster}
-            movieDescription={movieDescription}
-            setMovieDescription={setMovieDescription}
-            movieTrailer={movieTrailer}
-            setMovieTrailer={setMovieTrailer}
-            addMovie={addMovie}
-          ></AddMovieForm>
+        <Route exact path="/add-movie">
+          <AddMovieForm movies={movies} setMovies={setMovies}/>
         </Route>
         <Route exact path="/color-game">
           <Color />
