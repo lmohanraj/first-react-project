@@ -97,7 +97,7 @@ button{
 .desc-and-delete{
   display: flex;
   justify-content: space-around;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 .delete-button{
   color: crimson;
@@ -145,6 +145,12 @@ input{
   width:500px;
 }
 
+nav{
+  position:sticky;
+  top: 0;
+  z-index: 1;
+}
+
 ul{
   list-style-type: none;
   display: flex;
@@ -152,12 +158,18 @@ ul{
   gap: 50px;
   background-color: #143132;
   color: white;
-  height: 45px;
-  border-radius: 5px;
+  height: 60px;
   align-items: center;
+  margin: 0px;
 }
 
 a{
   text-decoration: none;
   color: white;
+}
+
+.movie-details{
+  margin: 30px;
+  width: 700px;
+  padding-bottom: 30px;
 }
