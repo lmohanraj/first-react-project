@@ -1,25 +1,34 @@
-import { Link } from "react-router-dom";
-
+import { Color } from "./Color";
+import { MovieDetails } from "./MovieDetails";
+import { AddMovieForm } from "./AddMovieForm";
+import { EditMovieForm } from "./EditMovieForm";
+import { MovieList } from "./MovieList";
+import { Switch, Route } from "react-router-dom";
 export function NavBar() {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/movies">Movies</Link>
-        </li>
-        <li>
-          <Link to="/add-movie">Add Movies</Link>
-        </li>
-        <li>
-          <Link to="/color-game">Color Game</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link>
-        </li>
-      </ul>
-    </nav>
+    <Switch>
+        <Route exact path="/">
+          Home page
+        </Route>
+        <Route path="/edit/:id">
+          <EditMovieForm />
+        </Route>
+        <Route exact path="/movies">
+                <MovieList
+                ></MovieList>
+        </Route>
+        <Route exact path="/movies/:id">
+          <MovieDetails />
+        </Route>
+        <Route exact path="/add-movie">
+          <AddMovieForm />
+        </Route>
+        <Route exact path="/color-game">
+          <Color />
+        </Route>
+        <Route exact path="/about">
+          About page
+        </Route>
+      </Switch>
   );
 }

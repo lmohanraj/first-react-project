@@ -1,41 +1,68 @@
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
-import { Color } from "./Color";
-import { MovieDetails } from "./MovieDetails";
-import { AddMovieForm } from "./AddMovieForm";
-import { EditMovieForm } from "./EditMovieForm";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import Switch from '@mui/material/Switch';
+import Brightness4OutlinedIcon from '@mui/icons-material/Brightness4Outlined';
 import { NavBar } from "./NavBar";
-import { MovieList } from "./MovieList";
 
 export default function App() {
-  return (
-    <section>
-      <NavBar></NavBar>
+   
+  const [darkTheme, setDarkTheme] = useState(false);
+  const [checked, setChecked] = useState(false);
+function ControlledSwitches() {
+  
+  const handleChange = (event) => {
+    setChecked(!checked);
+    setDarkTheme(!darkTheme);
+  };
 
-      <Switch>
-        <Route exact path="/">
-          Home page
-        </Route>
-        <Route path="/edit/:id">
-          <EditMovieForm />
-        </Route>
-        <Route exact path="/movies">
-                <MovieList
-                ></MovieList>
-        </Route>
-        <Route exact path="/movies/:id">
-          <MovieDetails />
-        </Route>
-        <Route exact path="/add-movie">
-          <AddMovieForm />
-        </Route>
-        <Route exact path="/color-game">
-          <Color />
-        </Route>
-        <Route exact path="/about">
-          About page
-        </Route>
-      </Switch>
+  return (
+    <Switch
+      checked={checked}
+      onChange={handleChange}
+      inputProps={{ 'aria-label': 'controlled' }}
+    />
+  );
+}
+
+  const theme = createTheme({
+    palette: {
+      mode: darkTheme? 'dark' : 'light',
+    },
+  });
+
+  return (
+    <ThemeProvider theme={theme}>
+    <Paper elevation={3} style={{minHeight:"100vh"}}>
+    <section>
+      <nav>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/movies">Movies</Link>
+        </li>
+        <li>
+          <Link to="/add-movie">Add Movies</Link>
+        </li>
+        <li>
+          <Link to="/color-game">Color Game</Link>
+        </li>
+        <li>
+          <Link to="/about">About</Link>
+        </li>
+        <li className="themeChanger">
+        <Brightness4OutlinedIcon />
+          <ControlledSwitches />
+        </li>
+      </ul>
+    </nav>
+    <NavBar></NavBar>
     </section>
+    </Paper>
+    </ThemeProvider>
   );
 }

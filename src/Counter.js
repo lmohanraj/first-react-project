@@ -8,7 +8,8 @@ export function Counter() {
   const incrementDislike = () => setDislike(dislike + 1); // UseState function for dislike value
   const iconStyle = {
     fontSize: "1.7rem",
-    color: "#0f0d2b" // Styling like & dislike icons
+    // border : "1px solid black",
+    color: "black", // Styling like & dislike icons
   };
 
   return (
@@ -26,7 +27,7 @@ export function Counter() {
 
       {/* Display the dislike button */}
 
-      <Badge onClick={incrementDislike} badgeContent={dislike} color="primary" overlap="circular"
+      <Badge onClick={incrementDislike} badgeContent={dislike} color="error" overlap="circular"
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'left',
