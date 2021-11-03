@@ -1,8 +1,7 @@
 import Button from "@mui/material/Button";
 import { useHistory } from "react-router";
-import { updateStoredMovies } from "./App";
 
-export function DeleteMovieButton(props) {
+export function DeleteMovieButton({id,getMovies}) {
 
     const deletebuttonStyles = {
         backgroundColor: "white", // Styling for Delete button
@@ -16,13 +15,20 @@ export function DeleteMovieButton(props) {
       };
       const history = useHistory();
 
+      const deleteMovie = (id) => {
+        fetch("https://6180e2e68bfae60017adfc81.mockapi.io/movies/"+id,
+        {method:'DELETE'})
+        .then( data => data.json())
+        .then( () => getMovies());
+      }
+
   return (
       <div className="edit-delete">
     <Button
       variant="contained"
       style={editbuttonStyles}
       onClick={() => {
-        history.push('/edit-movie/'+props.index);
+        history.push("edit/"+id);
       }}
     >
       <i class="fas fa-edit"></i>
@@ -31,11 +37,9 @@ export function DeleteMovieButton(props) {
       variant="contained"
       style={deletebuttonStyles}
       onClick={() => {
-        const removeIdx = props.index;
-        props.setMovies(props.movies.filter((mv, idx) => idx !== removeIdx)); //Filter fn. to remove movie to be deleted
-
-        updateStoredMovies(props.movies.filter((mv, idx) => idx !== removeIdx));
-      }}
+        deleteMovie(id);
+      }
+    }
     >
       <i class="fas fa-trash"></i>
     </Button>  

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useHistory } from 'react-router-dom';
 import { Counter } from './Counter';
-// import Button from "@mui/material/Button";
 
 export function Msg({ name, pic, desc, deleteMovieButton, id }) {
 

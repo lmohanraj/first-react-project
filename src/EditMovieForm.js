@@ -1,24 +1,51 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
-import { updateStoredMovies } from "./App";
-import { getFromStorage } from './App';
 
-export function EditMovieForm({movies, setMovies}) {
+export function EditMovieForm() {
 
+  const {id} = useParams();
+  const history = useHistory();
     const addbuttonStyles = {
         backgroundColor: "crimson", // Styling for ADD MOVIE button
       };
+    const [movie, setMovie] = useState([]);
+    const [movieName, setMovieName] = useState(""); //useState for new movie name
+    const [moviePoster, setMoviePoster] = useState(""); //useState for new movie poster
+    const [movieDescription, setMovieDescription] = useState(""); //useState for new movie description
+    const [movieTrailer, setMovieTrailer] = useState("");
+    
+    const getMovie = () => {
+      fetch("https://6180e2e68bfae60017adfc81.mockapi.io/movies/"+id)
+      .then( data => data.json())
+      .then( mv => {
+        setMovie(mv)
+        setMovieName(mv.name);
+        setMoviePoster(mv.pic);
+        setMovieDescription(mv.desc);
+        setMovieTrailer(mv.trailer);
+      });
+    // });
+  }
+   
+
+    console.log(movie.name);
 
       //Get movie details
-      const {id} = useParams();
-      const history = useHistory();
-      const movie = getFromStorage("movies")[id];
-      const [movieName, setMovieName] = useState(movie.name); //useState for new movie name
-      const [moviePoster, setMoviePoster] = useState(movie.pic); //useState for new movie poster
-      const [movieDescription, setMovieDescription] = useState(movie.desc); //useState for new movie description
-      const [movieTrailer, setMovieTrailer] = useState(movie.trailer);
+      
+      useEffect(getMovie,[]);
+      
+      const updateMovie = (editedMovie) => {
+        fetch("https://6180e2e68bfae60017adfc81.mockapi.io/movies/" + id,
+        {
+          method:"PUT",
+          body : JSON.stringify(editedMovie),
+          headers : {"Content-type" : "application/json"},
+      })
+        .then( data => data.json())
+        .then( () => history.push('/movies'))
+      }
       
       const editMovie = () => {
         // Function to find element & update data
@@ -29,14 +56,7 @@ export function EditMovieForm({movies, setMovies}) {
           trailer: movieTrailer,
         };
          
-        //Create copy of movies
-        //Replace the edited movie
-        //set Movies using useState
-        let updatedMovies = [...movies];
-        updatedMovies[id] = newMovie;
-        setMovies(updatedMovies);
-        updateStoredMovies(updatedMovies); //useState for movies array
-        history.push('/movies');
+        updateMovie(newMovie);
       };
   return (
     <div className="Add-movie-form">

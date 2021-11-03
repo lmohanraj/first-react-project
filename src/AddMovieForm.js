@@ -1,21 +1,29 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import {  useState } from "react";
 import { useHistory } from "react-router";
-import { updateStoredMovies } from "./App";
 
-export function AddMovieForm({movies, setMovies, type}) {
+export function AddMovieForm() {
 
     const addbuttonStyles = {
         backgroundColor: "crimson", // Styling for ADD MOVIE button
       };
-      
+
       const history = useHistory();
       const [movieName, setMovieName] = useState(""); //useState for new movie name
       const [moviePoster, setMoviePoster] = useState(""); //useState for new movie poster
       const [movieDescription, setMovieDescription] = useState(""); //useState for new movie description
       const [movieTrailer, setMovieTrailer] = useState("");
       
+      const createMovie = (newMovie) => {
+        fetch("https://6180e2e68bfae60017adfc81.mockapi.io/movies",
+        {method:'POST',
+        body : JSON.stringify(newMovie),
+        headers : {"Content-type" : "application/json"}
+      })
+        .then( data => data.json())
+        .then( () => history.push('/movies'))
+      }
       const addMovie = () => {
         // Function to add new movie
         const newMovie = {
@@ -24,9 +32,8 @@ export function AddMovieForm({movies, setMovies, type}) {
           desc: movieDescription,
           trailer: movieTrailer,
         };
-        setMovies([...movies, newMovie]);
-        updateStoredMovies([...movies, newMovie]); //useState for movies array
-        history.push('/movies');
+
+        createMovie(newMovie);
       };
 
   return (
