@@ -12,7 +12,7 @@ export function MovieDetails() {
     fetch("https://6180e2e68bfae60017adfc81.mockapi.io/movies/"+id)
       .then( data => data.json())
       .then( mv => setMovie(mv));
-    },[]);
+    },[id]);
   const history = useHistory();
   console.log(movie);
   return (

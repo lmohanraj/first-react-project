@@ -34,7 +34,7 @@ export function EditMovieForm() {
 
       //Get movie details
       
-      useEffect(getMovie,[]);
+      useEffect(getMovie,[id]);
       
       const updateMovie = (editedMovie) => {
         fetch("https://6180e2e68bfae60017adfc81.mockapi.io/movies/" + id,
