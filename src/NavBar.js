@@ -4,6 +4,7 @@ import { AddMovieForm } from "./AddMovieForm";
 import { EditMovieForm } from "./EditMovieForm";
 import { MovieList } from "./MovieList";
 import { Switch, Route } from "react-router-dom";
+import { About } from "./About";
 export function NavBar() {
   return (
     <Switch>
@@ -27,8 +28,9 @@ export function NavBar() {
           <Color />
         </Route>
         <Route exact path="/about">
-          About page
+          <About />
         </Route>
       </Switch>
   );
 }
+

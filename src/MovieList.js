@@ -24,6 +24,7 @@ export function MovieList() {
         pic={movie.pic}
         desc={movie.desc}
         id={movie.id}
+        rating={movie.rating}
         deleteMovieButton={<DeleteMovieButton
           id={movie.id}
           getMovies={getMovies}

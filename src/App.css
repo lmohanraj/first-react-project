@@ -184,3 +184,12 @@ a{
   justify-content: space-evenly;
   gap: 5px;
 }
+
+.rating{
+  margin-bottom: 20px;
+}
+
+.movie-name-rating{
+  display: flex;
+  justify-content: space-between;
+}

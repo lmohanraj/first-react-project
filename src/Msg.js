@@ -3,7 +3,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useHistory } from 'react-router-dom';
 import { Counter } from './Counter';
 
-export function Msg({ name, pic, desc, deleteMovieButton, id }) {
+export function Msg({ name, pic, desc, rating, deleteMovieButton, id }) {
 
   const [show, setShow] = useState(false); //useState to change description show
   const history = useHistory();
@@ -27,6 +27,8 @@ export function Msg({ name, pic, desc, deleteMovieButton, id }) {
         <InfoOutlinedIcon className="Info-icon" onClick={() => history.push("/movies/" + id)} />
 
       </div>
+       
+      <div className="rating"> <i class="fas fa-star" style={{color:"orange"}}></i> {rating} / 10</div>
 
       <Counter />
       <div className="desc-and-delete">
