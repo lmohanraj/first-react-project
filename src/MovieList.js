@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 
 export function MovieList() {
 
+  // const API_URL = "https://6180e2e68bfae60017adfc81.mockapi.io/movies";
+  const API_URL = "https://node-app-mohan.herokuapp.com";
   
     const [movies, setMovies] = useState([]);
     const getMovies = () => {
-      fetch("https://6180e2e68bfae60017adfc81.mockapi.io/movies")
+      fetch(`${API_URL}/movies`)
       .then( data => data.json())
       .then( mvs => setMovies(mvs));
     }
@@ -21,8 +23,8 @@ export function MovieList() {
       <Msg
         key={movie.id}
         name={movie.name}
-        pic={movie.pic}
-        desc={movie.desc}
+        pic={movie.poster}
+        desc={movie.summary}
         id={movie.id}
         rating={movie.rating}
         deleteMovieButton={<DeleteMovieButton
